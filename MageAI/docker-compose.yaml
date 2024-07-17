@@ -1,0 +1,20 @@
+version: '3'
+services:
+  magic:
+    image: mageai/mageai:latest
+    command: mage start Mage
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      USER_CODE_PATH: /home/src/Mage
+      REQUIRE_USER_AUTHENTICATION: 1
+      MAGE_ACCESS_TOKEN_EXPIRY_TIME: 2592000 # optional, set to 30 days
+      DEFAULT_OWNER_EMAIL: admin@admin.com # optional, customize the default owner user email
+      DEFAULT_OWNER_PASSWORD: admin # optional, customize the default owner user password
+      DEFAULT_OWNER_USERNAME: admin # optional, customize the default owner user username
+    ports:
+      - 6789:6789
+    volumes:
+      - .:/home/src/
+    restart: on-failure:5
